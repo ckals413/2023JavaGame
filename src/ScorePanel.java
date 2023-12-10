@@ -33,9 +33,6 @@ public class ScorePanel extends JPanel {
             heartX += 35; // 다음 하트의 x 위치
         }
         
-        
-        
-        
         //점수 표시
         scoreLabel.setBounds(145, 86, 100, 30); // 위치와 크기 설정
         scoreLabel.setFont(new Font("맑은고딕", Font.BOLD, 23));
@@ -180,7 +177,7 @@ public class ScorePanel extends JPanel {
         }
     }
 
-
+    
     public boolean isGameOver() {
         return lives <= 0;
     }
