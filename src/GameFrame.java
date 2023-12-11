@@ -1,17 +1,10 @@
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
 public class GameFrame extends JFrame {
@@ -38,8 +31,8 @@ public class GameFrame extends JFrame {
 	public void makeToolbar() {
 		JToolBar bar = new JToolBar();
 		getContentPane().add(bar, BorderLayout.NORTH);
-
-		ImageIcon exitIcon = new ImageIcon("toolExit.png");
+		
+		ImageIcon exitIcon = new ImageIcon(getClass().getResource("/toolExit.png"));
 		JButton exitBtn = new JButton(exitIcon);
 		exitBtn.addActionListener(new ActionListener() {
 			@Override
@@ -53,8 +46,7 @@ public class GameFrame extends JFrame {
 			}
 		});
 		bar.add(exitBtn);
-
-		ImageIcon helpIcon = new ImageIcon("toolHelp.png");
+		ImageIcon helpIcon = new ImageIcon(getClass().getResource("/toolHelp.png"));
 		JButton helpBtn = new JButton(helpIcon);
 		helpBtn.addActionListener(new ActionListener() {
 			@Override
@@ -70,12 +62,11 @@ public class GameFrame extends JFrame {
 		bar.addSeparator();
 		bar.addSeparator();
 		bar.addSeparator(); //툴팁 간격 저절
-
-		ImageIcon soundOffIcon = new ImageIcon("toolSoundOff.png");
+		ImageIcon soundOffIcon = new ImageIcon(getClass().getResource("/toolSoundOff.png"));
 		JButton soundOffBtn = new JButton(soundOffIcon);
 		bar.add(soundOffBtn);
 
-		ImageIcon soundOnIcon = new ImageIcon("toolSoundOn.png");
+		ImageIcon soundOnIcon = new ImageIcon(getClass().getResource("/toolSoundOn.png"));
 		JButton soundOnBtn = new JButton(soundOnIcon);
 		bar.add(soundOnBtn);
 
@@ -112,3 +103,4 @@ public class GameFrame extends JFrame {
 	}
 
 }
+

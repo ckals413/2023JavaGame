@@ -2,11 +2,8 @@
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -41,10 +38,9 @@ public class IdFrame extends JFrame {
 		textField.setSize(120, 21);
 		c.add(textField);
 		textField.requestFocus();
-
-		ImageIcon p1Icon = new ImageIcon("registerP1.png");
-		ImageIcon p2Icon = new ImageIcon("registerP2.png");
-
+		
+		ImageIcon p1Icon = new ImageIcon(getClass().getResource("registerP1.png"));
+		ImageIcon p2Icon = new ImageIcon(getClass().getResource("registerP2.png"));
 		// 라디오 버튼
 		JRadioButton p1 = new JRadioButton("P1", p1Icon, true); //기본 선택
 		p1.setSize(120, 120);

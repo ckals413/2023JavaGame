@@ -1,6 +1,5 @@
 import java.awt.Color;
 import java.awt.Font;
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -27,7 +26,7 @@ public class ScorePanel extends JPanel {
         // 하트 이미지 라벨 초기화 및 배치
         int heartX = 25; // 시작 x 위치
         for (int i = 0; i < 5; i++) {
-            lifeLabels[i] = new JLabel(new ImageIcon("heart1.png"));
+        	lifeLabels[i] = new JLabel(new ImageIcon(getClass().getResource("/heart1.png")));
             lifeLabels[i].setBounds(heartX, 20, 30, 30); // 위치와 크기 설정
             add(lifeLabels[i]);
             heartX += 35; // 다음 하트의 x 위치
@@ -39,7 +38,7 @@ public class ScorePanel extends JPanel {
         scoreLabel.setForeground(new Color(47,85,151));
         add(scoreLabel);
         
-        scoreImageLabel = new JLabel(new ImageIcon("labelScore.png"));
+        scoreImageLabel = new JLabel(new ImageIcon(getClass().getResource("/labelScore.png")));
         scoreImageLabel.setBounds(15, 50, 200, 100); // 위치와 크기 설정
         add(scoreImageLabel);
         
@@ -49,7 +48,7 @@ public class ScorePanel extends JPanel {
         timeLabel.setBounds(155, 138, 200, 26); // 위치 조정, 'timeImageLabel'에 맞추기
         add(timeLabel);
         
-        timeImageLabel = new JLabel(new ImageIcon("labelTime.png"));
+        timeImageLabel = new JLabel(new ImageIcon(getClass().getResource("/labelTime.png")));
         timeImageLabel.setBounds(15, 100, 200, 100); // 위치와 크기 설정
         add(timeImageLabel);
         
@@ -60,10 +59,11 @@ public class ScorePanel extends JPanel {
 	    playerIdLabel.setForeground(new Color(47,85,151));
 	    add(playerIdLabel);
 	    
-	    idImageLabel = new JLabel(new ImageIcon("labelId.png"));
+	    idImageLabel = new JLabel(new ImageIcon(getClass().getResource("/labelId.png")));
         idImageLabel.setBounds(15, 150, 200, 100); // 위치와 크기 설정
         add(idImageLabel);
-
+        
+        levelLabel = new JLabel();
 	    
 	    //레벨 이미지 
 	    levelLabel.setBounds(40, 200, 120, 120); // 위치와 크기 설정
@@ -74,13 +74,13 @@ public class ScorePanel extends JPanel {
     private void updateLevelImage() {
         // 점수에 따라 다른 레벨 이미지 설정
         if (score < 400) {
-            levelLabel.setIcon(new ImageIcon("level1.png"));
+            levelLabel.setIcon(new ImageIcon(getClass().getResource("/level1.png")));
         } else if (score < 800) {
-            levelLabel.setIcon(new ImageIcon("level2.png"));
+        	levelLabel.setIcon(new ImageIcon(getClass().getResource("/level2.png")));
         } else if (score < 1000) {
-            levelLabel.setIcon(new ImageIcon("level3.png"));
+        	levelLabel.setIcon(new ImageIcon(getClass().getResource("/level3.png")));
         } else {
-            levelLabel.setIcon(new ImageIcon("level4.png"));
+        	levelLabel.setIcon(new ImageIcon(getClass().getResource("/level4.png")));;
         }
     }
     
@@ -138,7 +138,7 @@ public class ScorePanel extends JPanel {
             int lifeIndex = (int)Math.floor(lives); // 반 목숨 처리를 위한 인덱스 계산 변경
 
             if (lives >= lifeIndex + 0.5 && lives < lifeIndex + 1) { // 반 목숨 남았을 경우
-                lifeLabels[lifeIndex].setIcon(new ImageIcon("halfHeart.png"));
+            	 lifeLabels[lifeIndex].setIcon(new ImageIcon(getClass().getResource("/halfHeart.png")));
             } else if (lives == lifeIndex) { // 전체 목숨을 잃은 경우
                 lifeLabels[lifeIndex].setVisible(false);
             }
@@ -163,10 +163,10 @@ public class ScorePanel extends JPanel {
             // 목숨 라벨 업데이트
             for (int i = 0; i < 5; i++) {
                 if (i < lives - 0.5) { // 전체 목숨 또는 반 목숨 상태
-                    lifeLabels[i].setIcon(new ImageIcon("heart1.png"));
+                	lifeLabels[i].setIcon(new ImageIcon(getClass().getResource("/heart1.png")));
                     lifeLabels[i].setVisible(true);
                 } else if (i < lives) { // 반 목숨 상태
-                    lifeLabels[i].setIcon(new ImageIcon("halfHeart.png"));
+                	lifeLabels[i].setIcon(new ImageIcon(getClass().getResource("/halfHeart.png")));
                     lifeLabels[i].setVisible(true);
                 } else { // 목숨이 없는 상태
                     lifeLabels[i].setVisible(false);

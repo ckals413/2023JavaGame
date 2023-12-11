@@ -14,11 +14,13 @@ public class ScoreBoardFrame extends JFrame {
 		setLocationRelativeTo(null);
 
 		BackgroundPanel panel = new BackgroundPanel("topRankBackGround.png");
+		
 		panel.setLayout(null);
 
 		ArrayList<ScoreBoard.PlayerScore> topScores = scoreboard.getTopScores(10);
 
-		ImageIcon scoreButtonIcon = new ImageIcon("scoreButton1.png");
+		ImageIcon scoreButtonIcon = new ImageIcon(getClass().getResource("scoreButton1.png"));
+
 		JLabel scoreButtonLabel = new JLabel(scoreButtonIcon);
 		scoreButtonLabel.setBounds(100, 30, scoreButtonIcon.getIconWidth(), scoreButtonIcon.getIconHeight());
 		panel.add(scoreButtonLabel);
@@ -72,7 +74,7 @@ public class ScoreBoardFrame extends JFrame {
 		private Image backgroundImage;
 
 		public BackgroundPanel(String fileName) {
-			backgroundImage = new ImageIcon(fileName).getImage();
+			 backgroundImage = new ImageIcon(getClass().getResource(fileName)).getImage();
 		}
 		
 		//배경 이미지 

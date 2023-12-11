@@ -1,4 +1,5 @@
 import java.io.*;
+import java.net.URL;
 import java.util.*;
 
 //점수 판 메소드 
@@ -16,21 +17,21 @@ public class ScoreBoard {
     }
 
     public void loadScores() throws IOException {
-    	scores.clear();
-        File file = new File("topRank.txt"); // topRank.txt 에서  읽어온온다.
-        if (file.exists()) {
-            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+        scores.clear();
+        File scoreFile = new File("topRank.txt"); // 현재 작업 디렉토리에 있는 topRank.txt 파일을 가리킵니다.
+        if (scoreFile.exists()) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(scoreFile))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    String[] parts = line.split(","); //저장된 값을 ,로 나눈다.
+                    String[] parts = line.split(","); // 저장된 값을 ,로 나눕니다.
                     if (parts.length == 2) {
-                    	//,로 나뉜값을 배열에 넣는다. 
                         scores.add(new PlayerScore(parts[0], Integer.parseInt(parts[1])));
                     }
                 }
             }
         }
     }
+
 
     public void updateScore(String playerId, int score) throws IOException {
         scores.add(new PlayerScore(playerId, score));
@@ -40,6 +41,7 @@ public class ScoreBoard {
             writer.newLine();
         }
     }
+
 
     public ArrayList<PlayerScore> getTopScores(int topN) throws IOException {
         loadScores();

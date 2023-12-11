@@ -4,16 +4,9 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Vector;
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -22,41 +15,42 @@ import javax.swing.SwingConstants;
 
 //왼쪽 패널임 게임이 돌아가는 패널
 public class GameGround extends JPanel {
-	private ImageIcon groundIcon = new ImageIcon("groundImg.png");// 게임패널 배경화면에 사용
-	private Image groundImg = groundIcon.getImage(); // 게임패널 배경화면에 사용
+	private ImageIcon groundIcon = new ImageIcon(getClass().getResource("/groundImg.png"));
+	private Image groundImg = groundIcon.getImage();
 	private ScorePanel scorePanel = null;
-	private ImageIcon monster1_1 = new ImageIcon("monster1_1.png");
-	private ImageIcon monster1_2 = new ImageIcon("monster1_2.png");
-	private ImageIcon monster2_1 = new ImageIcon("monster2_1.png");
-	private ImageIcon monster2_2 = new ImageIcon("monster2_2.png");
-	private ImageIcon monster3_1 = new ImageIcon("monster3_1.png");
-	private ImageIcon monster3_2 = new ImageIcon("monster3_2.png");
-	private ImageIcon monster4_1 = new ImageIcon("monster4_1.png");
-	private ImageIcon monster4_2 = new ImageIcon("monster4_2.png");
-	private ImageIcon timeItem1_1 = new ImageIcon("timeItem1_1.png");
-	private ImageIcon timeItem1_2 = new ImageIcon("timeItem1_2.png");
-	private ImageIcon heartItem1_1 = new ImageIcon("heartItem1_1.png");
-	private ImageIcon heartItem1_2 = new ImageIcon("heartItem1_2.png");
-	private ImageIcon defenseItem1_1 = new ImageIcon("defenseItem1_1.png");
-	private ImageIcon defenseItem1_2 = new ImageIcon("defenseItem1_2.png");
-	private ImageIcon bubble1 = new ImageIcon("bubble1.png");
-	private ImageIcon bubble2 = new ImageIcon("bubble2.png");
-	private ImageIcon bubble3 = new ImageIcon("bubble3.png");
-	private ImageIcon bubble4 = new ImageIcon("bubble4.png");
-	private ImageIcon heartBubble = new ImageIcon("heartBubble.png");
-	private ImageIcon timeBubble = new ImageIcon("timeBubble.png");
-	private ImageIcon defenseBubble = new ImageIcon("defenseBubble.png");
-	private ImageIcon bubblePop1 = new ImageIcon("bubblePop1.png");
-	private ImageIcon bubblePop2 = new ImageIcon("bubblePop2.png");
-	private ImageIcon bubblePop3 = new ImageIcon("bubblePop3.png");
-	private ImageIcon bubblePop4 = new ImageIcon("bubblePop4.png");
-	private ImageIcon heartBubblePop = new ImageIcon("heartBubblePop.png");
-	private ImageIcon timeBubblePop = new ImageIcon("timeBubblePop.png");
-	private ImageIcon defenseBubblePop = new ImageIcon("defenseBubblePop.png");
-	private ImageIcon playerIcon1_1 = new ImageIcon("player1_1.png");
-	private ImageIcon playerIcon1_2 = new ImageIcon("player1_2.png");
-	private ImageIcon playerIcon2_1 = new ImageIcon("player2_1.png");
-	private ImageIcon playerIcon2_2 = new ImageIcon("player2_2.png");
+	private ImageIcon monster1_1 = new ImageIcon(getClass().getResource("/monster1_1.png"));
+	private ImageIcon monster1_2 = new ImageIcon(getClass().getResource("/monster1_2.png"));
+	private ImageIcon monster2_1 = new ImageIcon(getClass().getResource("/monster2_1.png"));
+	private ImageIcon monster2_2 = new ImageIcon(getClass().getResource("/monster2_2.png"));
+	private ImageIcon monster3_1 = new ImageIcon(getClass().getResource("/monster3_1.png"));
+	private ImageIcon monster3_2 = new ImageIcon(getClass().getResource("/monster3_2.png"));
+	private ImageIcon monster4_1 = new ImageIcon(getClass().getResource("/monster4_1.png"));
+	private ImageIcon monster4_2 = new ImageIcon(getClass().getResource("/monster4_2.png"));
+	private ImageIcon timeItem1_1 = new ImageIcon(getClass().getResource("/timeItem1_1.png"));
+	private ImageIcon timeItem1_2 = new ImageIcon(getClass().getResource("/timeItem1_2.png"));
+	private ImageIcon heartItem1_1 = new ImageIcon(getClass().getResource("/heartItem1_1.png"));
+	private ImageIcon heartItem1_2 = new ImageIcon(getClass().getResource("/heartItem1_2.png"));
+	private ImageIcon defenseItem1_1 = new ImageIcon(getClass().getResource("/defenseItem1_1.png"));
+	private ImageIcon defenseItem1_2 = new ImageIcon(getClass().getResource("/defenseItem1_2.png"));
+	private ImageIcon bubble1 = new ImageIcon(getClass().getResource("/bubble1.png"));
+	private ImageIcon bubble2 = new ImageIcon(getClass().getResource("/bubble2.png"));
+	private ImageIcon bubble3 = new ImageIcon(getClass().getResource("/bubble3.png"));
+	private ImageIcon bubble4 = new ImageIcon(getClass().getResource("/bubble4.png"));
+	private ImageIcon heartBubble = new ImageIcon(getClass().getResource("/heartBubble.png"));
+	private ImageIcon timeBubble = new ImageIcon(getClass().getResource("/timeBubble.png"));
+	private ImageIcon defenseBubble = new ImageIcon(getClass().getResource("/defenseBubble.png"));
+	private ImageIcon bubblePop1 = new ImageIcon(getClass().getResource("/bubblePop1.png"));
+	private ImageIcon bubblePop2 = new ImageIcon(getClass().getResource("/bubblePop2.png"));
+	private ImageIcon bubblePop3 = new ImageIcon(getClass().getResource("/bubblePop3.png"));
+	private ImageIcon bubblePop4 = new ImageIcon(getClass().getResource("/bubblePop4.png"));
+	private ImageIcon heartBubblePop = new ImageIcon(getClass().getResource("/heartBubblePop.png"));
+	private ImageIcon timeBubblePop = new ImageIcon(getClass().getResource("/timeBubblePop.png"));
+	private ImageIcon defenseBubblePop = new ImageIcon(getClass().getResource("/defenseBubblePop.png"));
+	private ImageIcon playerIcon1_1 = new ImageIcon(getClass().getResource("/player1_1.png"));
+	private ImageIcon playerIcon1_2 = new ImageIcon(getClass().getResource("/player1_2.png"));
+	private ImageIcon playerIcon2_1 = new ImageIcon(getClass().getResource("/player2_1.png"));
+	private ImageIcon playerIcon2_2 = new ImageIcon(getClass().getResource("/player2_2.png"));
+
 	private boolean isPaused = false; // 몬스터들을 정지 상태를 관리하는 플래그
 	private boolean isGamePaused = false; // 게임 종료시를 관리하는 플래그
 	public int speed = 5; // 기본 속도
@@ -71,7 +65,7 @@ public class GameGround extends JPanel {
 	public int newBubbleY;
 	private boolean isMonster1Displayed = true; // 현재 이미지 상태 추적
 	private JTextField textInput = new JTextField(20);
-	private TextSource textSource = null;
+	 private TextSource textSource = new TextSource();
 	private Vector<JLabel> monsterVector = new Vector<JLabel>(3000);
 	// 단어를 생성하는 스레드
 	private GenerateWordThread generateWordThread = new GenerateWordThread(monsterVector);
@@ -102,7 +96,7 @@ public class GameGround extends JPanel {
 		// 스레드 생성자 부르기
 		generateWordThread = new GenerateWordThread(monsterVector);
 		dropWordThread = new MoveWordThread(monsterVector);
-		textSource = new TextSource(this); // 단어 벡터 생성
+		
 		checkLabelPositionThread = new CheckLabelPositionThread();
 		timeThread = new TimeThread(); // TimeThread 인스턴스 생성
 

@@ -3,31 +3,31 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class SoundEffects {
 	private Clip clip;
 
 	// 배경음악
-	public void loadAudio() {
-		try {
-			this.clip = AudioSystem.getClip();
-			File soundFile = new File("startGameTheme.wav");
-			AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundFile);
-			this.clip.open(audioStream);
+    public void loadAudio() {
+        try {
+            this.clip = AudioSystem.getClip();
+            InputStream audioSrc = getClass().getResourceAsStream("/startGameTheme.wav");
+            BufferedInputStream bufferedIn = new BufferedInputStream(audioSrc);
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(bufferedIn);
+            this.clip.open(audioStream);
 
-			// 배경음악 무한 반복재생
-			this.clip.loop(Clip.LOOP_CONTINUOUSLY);
-			this.clip.start();
-		} catch (LineUnavailableException e) {
-			e.printStackTrace();
-		} catch (UnsupportedAudioFileException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+            // 배경음악 무한 반복재생
+            this.clip.loop(Clip.LOOP_CONTINUOUSLY);
+            this.clip.start();
+        } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 	// 맞출 때의 효과음 재생
 	public void okAudio() {
@@ -71,17 +71,21 @@ public class SoundEffects {
 
 	// 오디오 파일을 로드하고 재생하는 메소드
 	private void playSound(String soundFileName) {
-		try {
-			Clip clip = AudioSystem.getClip();
-			File audioFile = new File(soundFileName);
-			AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
-			clip.open(audioStream);
-			clip.start();
-		} catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
-			e.printStackTrace();
-		}
+	    try {
+	        Clip clip = AudioSystem.getClip();
+	        InputStream audioSrc = getClass().getResourceAsStream("/" + soundFileName);
+	        if (audioSrc == null) {
+	            throw new IOException("Audio file not found: " + soundFileName);
+	        }
+	        BufferedInputStream bufferedIn = new BufferedInputStream(audioSrc);
+	        AudioInputStream audioStream = AudioSystem.getAudioInputStream(bufferedIn);
+	        clip.open(audioStream);
+	        clip.start();
+	    } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
+	        e.printStackTrace();
+	    }
 	}
-
+	
 	public void closeAudio() {
 		if (clip != null) {
 			clip.close();

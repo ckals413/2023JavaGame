@@ -1,13 +1,12 @@
-
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -20,19 +19,20 @@ import javax.swing.JPanel;
 
 public class MainPanel extends JPanel {
 
-	private ImageIcon mainIcon = new ImageIcon("background.png");
-	private Image mainImg = mainIcon.getImage(); 
-	private ImageIcon bubble1 = new ImageIcon("bubblebobble1.png");
-	private ImageIcon bubble2 = new ImageIcon("bubblebobble2.png");
-	private ImageIcon startButton1 = new ImageIcon("start1.png");
-	private ImageIcon startButton2 = new ImageIcon("start2.png");
-	private ImageIcon scoreButton1 = new ImageIcon("scoreButton1.png");
-	private ImageIcon scoreButton2 = new ImageIcon("scoreButton2.png");
+	//private ImageIcon mainIcon = new ImageIcon("background.png");
+	private ImageIcon mainIcon = new ImageIcon(getClass().getResource("background.png"));
+	private Image mainImg = mainIcon.getImage();
+	private ImageIcon bubble1 = new ImageIcon(getClass().getResource("bubblebobble1.png"));
+	private ImageIcon bubble2 = new ImageIcon(getClass().getResource("bubblebobble2.png"));
+	private ImageIcon startButton1 = new ImageIcon(getClass().getResource("start1.png"));
+	private ImageIcon startButton2 = new ImageIcon(getClass().getResource("start2.png"));
+	private ImageIcon scoreButton1 = new ImageIcon(getClass().getResource("scoreButton1.png"));
+	private ImageIcon scoreButton2 = new ImageIcon(getClass().getResource("scoreButton2.png"));
 
-	private ImageIcon mainPlayer1_1 = new ImageIcon("mainPlayer1_1.png");
-	private ImageIcon mainPlayer1_2 = new ImageIcon("mainPlayer1_2.png");
-	private ImageIcon mainPlayer2_1 = new ImageIcon("mainPlayer2_1.png");
-	private ImageIcon mainPlayer2_2 = new ImageIcon("mainPlayer2_2.png");
+	private ImageIcon mainPlayer1_1 = new ImageIcon(getClass().getResource("mainPlayer1_1.png"));
+	private ImageIcon mainPlayer1_2 = new ImageIcon(getClass().getResource("mainPlayer1_2.png"));
+	private ImageIcon mainPlayer2_1 = new ImageIcon(getClass().getResource("mainPlayer2_1.png"));
+	private ImageIcon mainPlayer2_2 = new ImageIcon(getClass().getResource("mainPlayer2_2.png"));
 
 	private JLabel gameStartLabel = new JLabel(startButton1);
 	private JLabel scoreLabel = new JLabel(scoreButton1);
@@ -133,16 +133,22 @@ public class MainPanel extends JPanel {
 
 	// 오디오 파일을 로드하고 재생하는 메소드
 	private void playSound(String soundFileName) {
-		try {
-			Clip clip = AudioSystem.getClip();
-			File audioFile = new File(soundFileName);
-			AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
-			clip.open(audioStream);
-			clip.start();
-		} catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
-			System.out.println("오디오 로드 오류");
-		}
+	    try {
+	        Clip clip = AudioSystem.getClip();
+	        InputStream audioSrc = getClass().getResourceAsStream("/" + soundFileName);
+	        if (audioSrc == null) {
+	            throw new IOException("Audio file not found: " + soundFileName);
+	        }
+	        BufferedInputStream bufferedIn = new BufferedInputStream(audioSrc);
+	        AudioInputStream audioStream = AudioSystem.getAudioInputStream(bufferedIn);
+	        clip.open(audioStream);
+	        clip.start();
+	    } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
+	        System.out.println("오디오 로드 오류: " + e.getMessage());
+	        e.printStackTrace();
+	    }
 	}
+
 
 	// ImageSwitcher 스레드 클래스
 	class ImageSwitcher extends Thread {
@@ -169,7 +175,7 @@ public class MainPanel extends JPanel {
 					}
 					isImage1 = !isImage1;
 				} catch (InterruptedException e) {
-					
+
 				}
 			}
 		}
